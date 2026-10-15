@@ -2,7 +2,7 @@
 <html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ficha de Personagem D&D 5.5</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital@0;1&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#080a12;--card:#0f1428;--ink:#e8dfcf;--mut:#a79a80;--line:#3b4166;--acc:#d9a441;--in:#0b0f1e;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 
@@ -59,14 +59,23 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 :root[data-sys="fu"]{--card:#0d1a16;--ink:#e6efe9;--mut:#8fb0a2;--line:#2c4a3f;--acc:#6fcdb0;--in:#08120f}
 :root[data-sys="fu"] .card{border-color:#2f7a63}
 :root[data-sys="fu"] body{background:#050d0a linear-gradient(160deg,#0f2b23,#050d0a) fixed}
+.fotobox{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.hd{display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:start}.hd>*{grid-column:2}.hd>.av{grid-column:1;grid-row:1/span 10}
+.av{display:flex;flex-direction:column;align-items:center;gap:4px}.av label{cursor:pointer}.av .foto{width:92px;height:92px}.av .frm{font-size:11px;padding:2px 6px}
+.foto{width:140px;height:140px;border-radius:8px;border:1px solid var(--line);background:var(--in) center/cover no-repeat;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:12px;text-align:center}
+.bx{display:inline-block;width:22px;height:22px;border:2px solid var(--acc);border-radius:3px;margin:2px;cursor:pointer;vertical-align:middle}.bx.f{background:var(--acc)}
+:root[data-sys="al"]{--card:#080b12;--ink:#f2f4f8;--mut:#98a2b3;--line:#3d4555;--acc:#ffffff;--in:#03050a}
+:root[data-sys="al"] .card{border-color:#dfe4ec;border-radius:4px}
+:root[data-sys="al"] body{font-family:system-ui,Segoe UI,Roboto,sans-serif;background:radial-gradient(1px 1px at 12% 18%,#fff 50%,transparent 51%) 0 0/240px 240px,radial-gradient(1px 1px at 72% 34%,#fff 50%,transparent 51%) 0 0/310px 310px,radial-gradient(1.5px 1.5px at 40% 78%,#cfd6e4 50%,transparent 51%) 0 0/270px 270px,radial-gradient(1px 1px at 88% 82%,#fff 50%,transparent 51%) 0 0/200px 200px,#020409;background-attachment:fixed}
+:root[data-sys="al"] .card h2,:root[data-sys="al"] .logo{font-family:Orbitron,system-ui,sans-serif;letter-spacing:2px}
 .logo{font:700 24px Cinzel,Georgia,serif;color:var(--acc);letter-spacing:2px}
 .tsk td{border-top:1px dotted var(--line)}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.row>*{flex:1;min-width:110px}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
-@media print{#home,#sheet.hide,#sheet2.hide,#sheet3.hide,.sw,.bar,.tabs,.x,.add{display:none!important}.hide{display:block!important}body{background:#fff!important}:root{--ink:#000;--mut:#555;--line:#999;--card:#fff;--in:#fff;--acc:#7a1f1f}}
+@media print{.frm,#home,#sheet.hide,#sheet2.hide,#sheet3.hide,#sheet4.hide,.sw,.bar,.tabs,.x,.add{display:none!important}.hide{display:block!important}body{background:#fff!important}:root{--ink:#000;--mut:#555;--line:#999;--card:#fff;--in:#fff;--acc:#7a1f1f}}
 </style></head><body><div class="w">
 <div id="home"><h2 class="ht">Suas Fichas</h2><p class="hs">Seus aventureiros, guardados aqui.</p><div id="grid" class="pg"></div>
-<div id="modal" class="hide"><div class="mb"><h3>Selecionar sistema</h3><div class="sy"><button data-sys="dnd"><b>D&amp;D 5.5</b><small>Disponível</small></button><button disabled><b>Daggerheart</b><small>Futuro</small></button><button data-sys="t20"><b>Tormenta20</b><small>Disponível</small></button><button data-sys="fu"><b>Fábula Ultima</b><small>Disponível</small></button><button disabled><b>Ordem Paranormal</b><small>Futuro</small></button><button disabled><b>Call of Cthulhu</b><small>Futuro</small></button><button disabled><b>Mausritter</b><small>Futuro</small></button><button disabled><b>Space Cats</b><small>Futuro</small></button><button disabled><b>Riverbank</b><small>Futuro</small></button><button disabled><b>Riverbend</b><small>Futuro</small></button><button disabled><b>Solarias</b><small>Futuro</small></button><button disabled><b>Masmorras e Marmitas</b><small>Futuro</small></button></div><button data-close style="margin-top:4px">Cancelar</button></div></div></div>
+<div id="modal" class="hide"><div class="mb"><h3>Selecionar sistema</h3><div class="sy"><button data-sys="dnd"><b>D&amp;D 5.5</b><small>Disponível</small></button><button disabled><b>Daggerheart</b><small>Futuro</small></button><button data-sys="t20"><b>Tormenta20</b><small>Disponível</small></button><button data-sys="fu"><b>Fábula Ultima</b><small>Disponível</small></button><button data-sys="al"><b>Alien RPG</b><small>Disponível</small></button><button disabled><b>Ordem Paranormal</b><small>Futuro</small></button><button disabled><b>Call of Cthulhu</b><small>Futuro</small></button><button disabled><b>Mausritter</b><small>Futuro</small></button><button disabled><b>Space Cats</b><small>Futuro</small></button><button disabled><b>Riverbank</b><small>Futuro</small></button><button disabled><b>Riverbend</b><small>Futuro</small></button><button disabled><b>Solarias</b><small>Futuro</small></button><button disabled><b>Masmorras e Marmitas</b><small>Futuro</small></button></div><button data-close style="margin-top:4px">Cancelar</button></div></div></div>
 <div id="sheet" class="hide">
 <div class="bar"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button id="back">← Fichas</button><h1>⚔ Ficha de Personagem · D&amp;D 5.5</h1></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -86,7 +95,7 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 </div></div>
 
 <div class="tabs bar" style="justify-content:flex-start">
-<button class="on" data-t="t1">Ficha</button><button data-t="t2">Magias</button><button data-t="t3">Detalhes</button></div>
+<button class="on" data-t="t1">Ficha</button><button data-t="t2">Magias</button><button data-t="t3">Detalhes</button><button data-t="t4">Extras</button></div>
 
 <section id="t1">
 <div class="g g2" style="margin-bottom:10px">
@@ -151,6 +160,7 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 <div class="card"><h2>Moedas</h2><div class="row"><div><label>PC</label><input type="number" data-k="pc"></div><div><label>PP</label><input type="number" data-k="pp2"></div><div><label>CE</label><input type="number" data-k="ce"></div><div><label>PO</label><input type="number" data-k="po"></div><div><label>PL</label><input type="number" data-k="pl"></div></div>
 <p style="margin:8px 0 0;color:var(--mut)">Total em PO: <b id="tot">0</b></p></div></div>
 </div></section>
+<section id="t4" class="hide"><div class="extras"></div></section>
 </div>
 <div id="sheet2" class="hide">
 <div class="bar"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button id="back2">← Fichas</button><span class="logo">TORMENTA20</span></div>
@@ -184,6 +194,7 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 <div class="card"><h2>Habilidades &amp; magias</h2><textarea data-k="hab" style="min-height:240px"></textarea></div>
 <div class="cols"><div class="card"><h2>Proficiências &amp; outras características</h2><textarea data-k="prof2"></textarea></div>
 <div class="card"><h2>Equipamento</h2><textarea data-k="eq2"></textarea><div class="row" style="margin-top:6px"><div><label>T$</label><input type="number" data-k="tsi"></div><div><label>TO</label><input type="number" data-k="tou"></div></div></div></div>
+<div class="extras"></div>
 </div>
 <div id="sheet3" class="hide">
 <div class="bar"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button id="back3">← Fichas</button><span class="logo">FABULA ULTIMA</span></div>
@@ -230,6 +241,37 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 <div class="card"><h2>Rituais</h2><div class="row" id="frit" style="margin-bottom:8px"></div><textarea data-k="frn" style="min-height:80px" placeholder="Anotações de rituais"></textarea></div>
 <div class="cols"><div class="card"><h2>Mochila &amp; anotações</h2><textarea data-k="fmoc" style="min-height:160px"></textarea></div>
 <div class="card"><h2>Zênite</h2><input type="number" data-k="fz" style="font-size:22px"></div></div>
+<div class="extras"></div>
+</div>
+<div id="sheet4" class="hide">
+<div class="bar"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button id="back4">← Fichas</button><span class="logo">ALIEN · RPG</span></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><button onclick="$('exp').click()">Exportar</button><button onclick="$('imp').click()">Importar</button><button onclick="print()">Imprimir</button><button onclick="$('clr').click()">Limpar</button></div></div>
+<datalist id="acars"></datalist><datalist id="adist"></datalist>
+<div class="card"><div class="g g2"><div><label>Nome</label><input data-k="nome"></div><div><label>Carreira</label><input data-k="acar" list="acars"></div><div><label>Camarada</label><input data-k="acam"></div><div><label>Rival</label><input data-k="ariv"></div></div>
+<div class="cols" style="margin-top:8px"><div><label>Aparência</label><textarea data-k="aapa" style="min-height:70px"></textarea></div><div><label>Meta pessoal</label><textarea data-k="ameta" style="min-height:70px"></textarea></div></div></div>
+<div class="card"><h2>Atributos</h2><svg id="rada" viewBox="0 0 300 300" style="width:100%;max-width:340px;display:block;margin:0 auto"></svg>
+<p style="color:var(--mut);font-size:12px;margin:6px 0 0;text-align:center">Pontos de atributo gastos: <b id="apts">0</b> / 14 (mín. 2 e máx. 4 em cada, 5 no atributo principal da carreira; androides ganham +3 em dois atributos) · Pontos de habilidade: <b id="asp">0</b> / 10</p></div>
+<div class="abs" id="aat" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))"></div>
+<p style="color:var(--mut);font-size:12px;margin:0 0 10px">Rolagem de habilidade = atributo + nível da habilidade + modificador de equipamento (dados base) + dados de estresse (<b id="astn">0</b> agora). O campo ao lado de cada habilidade é o modificador de equipamento.</p>
+<div class="cols">
+<div class="card"><h2>Vitalidade</h2><div id="avit"></div><div class="row" style="margin-top:6px"><div class="stat"><b id="avm">0</b><span>Vitalidade máx.</span></div><div><label>Extras (talentos)</label><input type="number" data-k="avO"></div></div>
+<p style="color:var(--mut);font-size:12px;margin:6px 0 0">Máxima = Força + extras. Clique nas caixas para marcar a Vitalidade atual. Em zero você está Quebrado e sofre lesão crítica.</p></div>
+<div class="card"><h2>Nível de estresse</h2><div id="astr"></div><p style="color:var(--mut);font-size:12px;margin:6px 0 0">Cada ponto de estresse é um dado de estresse extra nas suas rolagens.</p>
+<h2 style="margin-top:12px">Radiação</h2><div id="arad"></div></div></div>
+<div class="cols">
+<div class="card"><h2>Condições</h2><div class="g g2"><label style="text-transform:none;font-size:14px;color:var(--ink)"><input type="checkbox" data-k="acd_0" style="width:auto"> Faminto</label><label style="text-transform:none;font-size:14px;color:var(--ink)"><input type="checkbox" data-k="acd_1" style="width:auto"> Desidratado</label><label style="text-transform:none;font-size:14px;color:var(--ink)"><input type="checkbox" data-k="acd_2" style="width:auto"> Exausto</label><label style="text-transform:none;font-size:14px;color:var(--ink)"><input type="checkbox" data-k="acd_3" style="width:auto"> Congelando</label></div>
+<label style="margin-top:8px">Lesões críticas</label><textarea data-k="acri" style="min-height:70px"></textarea></div>
+<div class="card"><h2>Consumíveis (Abastecimento)</h2><div class="g g2"><div><label>Ar</label><input type="number" data-k="acn_0"></div><div><label>Comida</label><input type="number" data-k="acn_1"></div><div><label>Energia</label><input type="number" data-k="acn_2"></div><div><label>Água</label><input type="number" data-k="acn_3"></div></div>
+<p style="color:var(--mut);font-size:12px;margin:6px 0 0">Em cada rolagem de Abastecimento, role dados de estresse iguais à classificação; cada caveira reduz a classificação em um.</p></div></div>
+<div class="cols">
+<div class="card"><h2>Talentos</h2><textarea data-k="atal" style="min-height:110px"></textarea></div>
+<div class="card"><h2>Experiência &amp; história</h2><label>Pontos de experiência</label><div id="axp"></div><label style="margin-top:8px">Pontos de história</label><div id="aph"></div></div></div>
+<div class="card"><h2>Armadura &amp; carga</h2><div class="g g2"><div><label>Armadura</label><input data-k="aarm"></div><div><label>Nível de armadura</label><input type="number" data-k="aarmN"></div><div><label>Carga atual (itens)</label><input type="number" data-k="acarga"></div><div class="stat"><b id="acap">0</b><span>Capacidade (Força × 2)</span></div></div>
+<p id="acst" style="color:var(--mut);font-size:12px;margin:6px 0 0"></p></div>
+<div class="card"><h2>Armas</h2><div class="tbl"><table style="min-width:0"><thead><tr><th>Nome</th><th>Bônus</th><th>Dano</th><th>Distância</th><th></th></tr></thead><tbody id="alw"></tbody></table></div><button class="add" id="aadd">+ Arma</button></div>
+<div class="cols"><div class="card"><h2>Equipamento</h2><div id="aeq"></div></div>
+<div><div class="card"><h2>Itens minúsculos</h2><textarea data-k="amin" style="min-height:90px"></textarea></div><div class="card"><h2>Item emocional</h2><input data-k="aemo"></div></div></div>
+<div class="extras"></div>
 </div></div>
 <script>
 const AB=[['for','Força'],['des','Destreza'],['con','Constituição'],['int','Inteligência'],['sab','Sabedoria'],['car','Carisma']];
@@ -243,8 +285,8 @@ if(!DB.chars)DB.chars={};DB.cur=null;
 let S=novo();
 const $=id=>document.getElementById(id),mod=v=>Math.floor((v-10)/2),fmt=n=>(n>=0?'+':'')+n,num=v=>+v||0;
 const save=()=>{if(DB.cur)DB.chars[DB.cur]=S;try{localStorage.setItem(LK,JSON.stringify(DB))}catch(e){}refreshSel()};
-const SYS={dnd:'D&amp;D 5.5',t20:'Tormenta20',fu:'Fábula Ultima'};
-function refreshSel(){$('grid').innerHTML='<div class="newc" id="newc"><span>+</span>Criar ficha</div>'+Object.keys(DB.chars).map(id=>{const c=DB.chars[id];return `<div class="pc" data-open="${id}"><div class="ph"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c0-5 3.8-7.5 8.5-7.5s8.5 2.5 8.5 7.5z"/></svg><span class="bd">Nível ${num(c.nivel)||1}</span></div><h3>${esc(c.nome||'Sem nome')}</h3><i>${esc([c.esp,c.classe].filter(Boolean).join(' · ')||'Sem classe')}</i><em>${SYS[c.sys||'dnd']}</em><button class="rm" data-del="${id}" title="Excluir">✕</button></div>`}).join('')}
+const SYS={dnd:'D&amp;D 5.5',t20:'Tormenta20',fu:'Fábula Ultima',al:'Alien RPG'};
+function refreshSel(){$('grid').innerHTML='<div class="newc" id="newc"><span>+</span>Criar ficha</div>'+Object.keys(DB.chars).map(id=>{const c=DB.chars[id];return `<div class="pc" data-open="${id}"><div class="ph"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c0-5 3.8-7.5 8.5-7.5s8.5 2.5 8.5 7.5z"/></svg>${c.foto?`<img src="${c.foto}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`:''}<span class="bd">Nível ${num(c.nivel)||1}</span></div><h3>${esc(c.nome||'Sem nome')}</h3><i>${esc([c.esp,c.classe].filter(Boolean).join(' · ')||'Sem classe')}</i><em>${SYS[c.sys||'dnd']}</em><button class="rm" data-del="${id}" title="Excluir">✕</button></div>`}).join('')}
 const abSel=(v,none)=>`<select data-f="ab">${none?'<option value="">—</option>':''}${AB.map(a=>`<option value="${a[0]}"${v==a[0]?' selected':''}>${a[0].toUpperCase()}</option>`).join('')}</select>`;
 
 // atributos + perícias
@@ -268,6 +310,8 @@ document.addEventListener('click',e=>{const t=e.target;
  else if(t.dataset.sp){const l=t.closest('.sl').querySelector('input').dataset.k.slice(4),i=+t.dataset.sp;S.spent[l]=S.spent[l]==i+1?i:i+1}
  else if(t.dataset.rm){const[a,i]=t.dataset.rm.split(':');S[a].splice(+i,1);if(!S[a].length)S[a].push({});rows()}
  else if(t.dataset.st){const[k,d]=t.dataset.st.split(':'),n=Math.min(30,Math.max(1,num(S['a_'+k])+ +d));S['a_'+k]=n;document.querySelector(`[data-k="a_${k}"]`).value=n}
+ else if(t.dataset.lv){const[k,v]=t.dataset.lv.split(':');S[k]=num(S[k])==+v?+v-1:+v}
+ else if(t.dataset.bx){const[k,i]=t.dataset.bx.split(':');S[k]=num(S[k])==+i+1?+i:+i+1}
  else if(t.dataset.fp){const[k,d]=t.dataset.fp.split(':');S[k]=Math.max(0,num(S[k])+ +d);document.querySelector(`[data-k="${k}"]`).value=S[k]}
  else if(t.dataset.st2){const[k,d]=t.dataset.st2.split(':'),n=Math.min(30,Math.max(1,num(S[k])+ +d));S[k]=n;document.querySelector(`[data-k="${k}"]`).value=n}
  else if(t.dataset.t){document.querySelectorAll('section').forEach(s=>s.classList.add('hide'));$(t.dataset.t).classList.remove('hide');document.querySelectorAll('[data-t]').forEach(b=>b.classList.toggle('on',b==t))}
@@ -276,7 +320,7 @@ document.addEventListener('click',e=>{const t=e.target;
 function rows(){
  $('wb').innerHTML=S.weapons.map((w,i)=>`<tr data-a="weapons" data-i="${i}"><td><input data-a="1" data-f="n" value="${esc(w.n)}"></td><td>${abSel(w.ab,1).replace('data-f','data-a="1" data-f')}</td><td class="c"><input type="checkbox" data-a="1" data-f="p"${w.p?' checked':''}></td><td><input type="number" style="width:60px" data-a="1" data-f="x" value="${esc(w.x)}"></td><td class="c"><b class="wa">+0</b></td><td><input data-a="1" data-f="d" placeholder="1d8" value="${esc(w.d)}"></td><td class="c"><b class="wd"></b></td><td><input data-a="1" data-f="t" value="${esc(w.t)}"></td><td><input data-a="1" data-f="o" value="${esc(w.o)}"></td><td><button class="x" data-rm="weapons:${i}">✕</button></td></tr>`).join('');
  $('sb').innerHTML=S.spells.map((w,i)=>`<tr data-a="spells" data-i="${i}"><td><input style="width:54px" data-a="1" data-f="c" value="${esc(w.c)}" placeholder="0"></td><td><input data-a="1" data-f="n" value="${esc(w.n)}"></td><td><input data-a="1" data-f="tc" value="${esc(w.tc)}"></td><td><input data-a="1" data-f="al" value="${esc(w.al)}"></td>${['C','R','M'].map(c=>`<td class="c"><input type="checkbox" data-a="1" data-f="${c}"${w[c]?' checked':''}></td>`).join('')}<td><input data-a="1" data-f="o" value="${esc(w.o)}"></td><td><button class="x" data-rm="spells:${i}">✕</button></td></tr>`).join('');
- rowsT();rowsF();calc()}
+ rowsT();rowsF();rowsA();rowsX();calc()}
 const esc=v=>String(v==null?'':v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
 $('wa').onclick=()=>{S.weapons.push({});rows();save()};
 $('sa').onclick=()=>{S.spells.push({});rows();save()};
@@ -288,7 +332,7 @@ function radar(m,id){const gv=k=>id=='rad2'?num(S['ta_'+k])+num(S['tb_'+k]):num(
 const CL={Arcanista:[8,2,6],Bárbaro:[24,6,3],Bardo:[12,3,4],Bucaneiro:[16,4,3],Caçador:[16,4,4],Cavaleiro:[20,5,3],Clérigo:[16,4,5],Druida:[16,4,4],Guerreiro:[20,5,3],Inventor:[12,3,4],Ladino:[12,3,4],Lutador:[20,5,3],Nobre:[16,4,4],Paladino:[20,5,3]};
 const TS=[['Acrobacia','des','a'],['Adestramento','car','t'],['Atletismo','for',''],['Atuação','car',''],['Cavalgar','des',''],['Conhecimento','int','t'],['Cura','sab',''],['Diplomacia','car',''],['Enganação','car',''],['Fortitude','con',''],['Furtividade','des','a'],['Guerra','int','t'],['Iniciativa','des',''],['Intimidação','car',''],['Intuição','sab',''],['Investigação','int',''],['Jogatina','car','t'],['Ladinagem','des','at'],['Luta','for',''],['Misticismo','int','t'],['Nobreza','int','t'],['Ofício','int','to'],['Ofício','int','to'],['Percepção','sab',''],['Pilotagem','des','t'],['Pontaria','des',''],['Reflexos','des',''],['Religião','sab','t'],['Sobrevivência','sab',''],['Vontade','sab','']];
 const PTS={8:-2,9:-1,10:0,11:1,12:2,13:3,14:4,15:6,16:8,17:11,18:14};
-const nova=s=>{const o=Object.assign(novo(),{sys:s});if(s=='t20'){Object.assign(o,{tar:'0|0',tes:'0|0',atk:[{}]});AB.forEach(a=>o['ta_'+a[0]]=10)}if(s=='fu')Object.assign(o,{nivel:5,fxp:0,fp:0,fd_dex:'8',fd_ins:'8',fd_mig:'8',fd_wlp:'8',arf:'none',esf:'none',fcl:[{},{}],fsp:[{}]});return o};
+const nova=s=>{const o=Object.assign(novo(),{sys:s});if(s=='t20'){Object.assign(o,{tar:'0|0',tes:'0|0',atk:[{}]});AB.forEach(a=>o['ta_'+a[0]]=10)}if(s=='fu')Object.assign(o,{nivel:5,fxp:0,fp:0,fd_dex:'8',fd_ins:'8',fd_mig:'8',fd_wlp:'8',arf:'none',esf:'none',fcl:[{},{}],fsp:[{}]});if(s=='al')Object.assign(o,{al_for:3,al_agi:3,al_per:3,al_emp:3,alw:[{}]});return o};
 $('tcl').innerHTML=Object.keys(CL).map(c=>`<option value="${c}">`).join('');
 function sugT(){const c=CL[S.classe];if(!c)return null;const lv=Math.min(20,Math.max(1,num(S.nivel)||1)),con=Math.floor((num(S.ta_con)+num(S.tb_con)-10)/2);return{pv:c[0]+con+(lv-1)*(c[1]+con),pm:lv*c[2]}}
 $('spv').onclick=()=>{const g=sugT();if(g){S.pvM=g.pv;bind();calc();save()}};
@@ -310,6 +354,36 @@ function calcT(){const lv=Math.min(20,Math.max(1,num(S.nivel)||1)),h=Math.floor(
   $('tsd_'+i).textContent=`½ nível ${h} ${fmt(m[k])} ${k.toUpperCase()}`+(tr?` +${tb} trein.`:'')+(a?` −${a} armadura`:'')+(f.includes('t')&&!tr?' · só treinada':'')});
  $('ttrn').textContent=nt+' · Int '+fmt(m.int);
  document.querySelectorAll('#tatk tr').forEach((tr,i)=>{const w=S.atk[i]||{};tr.querySelector('.ta').textContent=fmt(tot[w.p||'Luta']+num(w.x))})}
+/*AL*/
+const XH=`<div class="card"><h2>Inventário</h2><div class="tbl"><table style="min-width:0"><thead><tr><th>Item</th><th style="width:70px">Qtd</th><th>Observações</th><th></th></tr></thead><tbody class="invb"></tbody></table></div><button class="add invadd">+ Item</button></div>
+<div class="card"><h2>Anotações extras</h2><textarea data-k="notas" style="min-height:160px"></textarea></div>`;
+document.querySelectorAll('.extras').forEach(e=>e.innerHTML=XH);
+['sheet','sheet2','sheet3','sheet4'].forEach(id=>{const c=document.querySelector('#'+id+' [data-k="nome"]').closest('.card');c.classList.add('hd');c.insertAdjacentHTML('afterbegin','<div class="av"><label title="Foto do personagem"><div class="foto"></div><input type="file" accept="image/*" class="fin" style="display:none"></label><button type="button" class="frm">Remover</button></div>')});
+function fotoUI(){document.querySelectorAll('.foto').forEach(f=>{f.style.backgroundImage=S.foto?`url("${S.foto}")`:'';f.textContent=S.foto?'':'+ Foto'});document.querySelectorAll('.av .frm').forEach(b=>b.style.display=S.foto?'':'none')}
+function rowsX(){if(!S.inv)S.inv=[{}];document.querySelectorAll('.invb').forEach(b=>b.innerHTML=S.inv.map((w,i)=>`<tr data-a="inv" data-i="${i}"><td><input data-a="1" data-f="n" value="${esc(w.n)}"></td><td><input type="number" style="width:70px" data-a="1" data-f="q" value="${esc(w.q)}"></td><td><input data-a="1" data-f="o" value="${esc(w.o)}"></td><td><button class="x" data-rm="inv:${i}">✕</button></td></tr>`).join(''));fotoUI()}
+document.addEventListener('change',e=>{const t=e.target;if(!t.classList||!t.classList.contains('fin')||!t.files[0])return;const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const r=Math.min(1,360/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*r);c.height=Math.round(im.height*r);c.getContext('2d').drawImage(im,0,0,c.width,c.height);S.foto=c.toDataURL('image/jpeg',.82);t.value='';fotoUI();save()};im.src=fr.result};fr.readAsDataURL(t.files[0])});
+document.addEventListener('click',e=>{const t=e.target;if(t.classList.contains('frm')){S.foto='';fotoUI();save()}if(t.classList.contains('invadd')){S.inv=S.inv||[];S.inv.push({});rowsX();save()}});
+const AAT=[['for','Força'],['agi','Agilidade'],['per','Perspicácia'],['emp','Empatia']];
+const ASK=[['Combate Corpo a Corpo','for'],['Maquinário Pesado','for'],['Resistência','for'],['Combate à Distância','agi'],['Mobilidade','agi'],['Pilotagem','agi'],['Observação','per'],['Sobrevivência','per'],['Tecnologia','per'],['Comando','emp'],['Manipulação','emp'],['Ajuda Médica','emp']];
+$('acars').innerHTML=['Colono','Fuzileiro Colonial','Agente da Companhia','Criança','Médico','Oficial','Piloto','Operário','Cientista'].map(c=>`<option value="${c}">`).join('');
+$('adist').innerHTML=['Engajado','Curto','Médio','Longo','Extremo'].map(c=>`<option value="${c}">`).join('');
+$('aat').innerHTML=AAT.map(([k,n])=>`<div class="card ab"><div class="top"><span class="n">${n}</span><div class="stp"><button data-st2="al_${k}:-1">−</button><input type="number" inputmode="numeric" data-k="al_${k}" onfocus="this.select()"><button data-st2="al_${k}:1">+</button></div></div>${ASK.map(([nm,kk],i)=>kk!=k?'':`<div class="r"><span class="nm">${nm}<br>${[1,2,3,4,5].map(v=>`<span class="bub" data-lv="als_${i}:${v}"></span>`).join('')}</span><input type="number" data-k="alm_${i}" style="width:46px;padding:2px 4px" title="Modificador de equipamento"><span class="v" id="ap_${i}">0</span></div>`).join('')}</div>`).join('');
+$('aeq').innerHTML=Array.from({length:10},(_,i)=>`<div class="row" style="margin-bottom:4px;align-items:center"><span style="flex:0 0 24px;min-width:0;color:var(--mut)">${i+1}</span><input data-k="aeq_${i}"></div>`).join('');
+function rowsA(){if(S.sys!='al')return;if(!S.alw)S.alw=[{}];
+ $('alw').innerHTML=S.alw.map((w,i)=>`<tr data-a="alw" data-i="${i}"><td><input data-a="1" data-f="n" value="${esc(w.n)}"></td><td><input style="width:64px" data-a="1" data-f="b" value="${esc(w.b)}"></td><td><input style="width:64px" data-a="1" data-f="d" value="${esc(w.d)}"></td><td><input list="adist" data-a="1" data-f="r" value="${esc(w.r)}"></td><td><button class="x" data-rm="alw:${i}">✕</button></td></tr>`).join('')}
+$('aadd').onclick=()=>{S.alw.push({});rowsA();calc();save()};
+const bxs=(id,key,n,cur)=>{$(id).innerHTML=Array.from({length:n},(_,i)=>`<span class="bx${i<cur?' f':''}" data-bx="${key}:${i}"></span>`).join('')};
+function radarA(v){const mx=Math.max(5,...Object.values(v)),ord=[['for','Força'],['per','Perspicácia'],['emp','Empatia'],['agi','Agilidade']],R=90,pt=(i,r)=>{const a=-Math.PI/2+i*Math.PI/2;return[(150+r*Math.cos(a)).toFixed(1),(135+r*Math.sin(a)).toFixed(1)]};let g='';
+ for(let k=1;k<=mx;k++)g+=`<polygon points="${ord.map((_,i)=>pt(i,R*k/mx).join(',')).join(' ')}" fill="none" style="stroke:var(--line)"/>`;
+ ord.forEach(([k,n],i)=>{const e=pt(i,R),l=pt(i,R+26);g+=`<line x1="150" y1="135" x2="${e[0]}" y2="${e[1]}" style="stroke:var(--line)"/><text x="${l[0]}" y="${l[1]}" text-anchor="middle" font-size="11" style="fill:var(--mut)">${n}<tspan x="${l[0]}" dy="15" font-size="14" font-weight="700" style="fill:var(--ink)">${v[k]}</tspan></text>`});
+ g+=`<polygon points="${ord.map(([k],i)=>pt(i,R*Math.min(mx,v[k])/mx).join(',')).join(' ')}" fill-opacity=".25" stroke-width="2" style="fill:var(--acc);stroke:var(--acc)"/>`;$('rada').innerHTML=g}
+function calcA(){const v={};let sa=0,ss=0;AAT.forEach(([k])=>{v[k]=num(S['al_'+k]);sa+=v[k]});radarA(v);$('apts').textContent=sa;
+ ASK.forEach(([n,k],i)=>{const l=num(S['als_'+i]);ss+=l;$('ap_'+i).textContent=v[k]+l+num(S['alm_'+i])});$('asp').textContent=ss;
+ document.querySelectorAll('[data-lv]').forEach(b=>{const[k,x]=b.dataset.lv.split(':');b.classList.toggle('f',num(S[k])>=+x)});
+ const vm=Math.min(15,Math.max(0,v.for+num(S.avO)));$('avm').textContent=vm;bxs('avit','avit',vm,S.avit===undefined||S.avit===''?vm:Math.min(vm,num(S.avit)));
+ bxs('astr','astr',10,num(S.astr));bxs('arad','arad',10,num(S.arad));bxs('axp','axp',10,num(S.axp));bxs('aph','aph',3,num(S.aph));$('astn').textContent=num(S.astr);
+ const cap=v.for*2,car=num(S.acarga);$('acap').textContent=cap;$('acst').textContent=car>cap*2?'Acima do limite: você não consegue carregar tudo isso.':car>cap?'Sobrecarregado (até '+cap*2+' itens): teste de Mobilidade para correr ou engatinhar.':'Itens normais contam 1, pesados 2 ou mais, leves meio item e minúsculos não contam.';
+ S.classe=S.acar||'';S.esp=''}
 /*FU*/const FD=[6,8,10,12],FA=[['dex','Destreza'],['ins','Intuição'],['mig','Vigor'],['wlp','Vontade']];
 const FC=[['lento','Lento',{dex:1}],['conf','Confuso',{ins:1}],['fraco','Fraco',{mig:1}],['abal','Abalado',{wlp:1}],['enf','Enfurecido',{dex:1,ins:1}],['env','Envenenado',{mig:1,wlp:1}]];
 const FARL=[['none','Sem armadura',[null,0,0,0]],['camisa','Camisa de seda (M.Def +2, Init −1)',[null,0,2,-1]],['traje','Traje de viagem (Def +1, M.Def +1, Init −1)',[null,1,1,-1]],['tunica','Túnica de combate (Def +1, M.Def +1)',[null,1,1,0]],['manto','Manto sábio (Def +1, M.Def +2, Init −2)',[null,1,2,-2]],['brig','Brigandina — marcial (Def 10, Init −2)',[10,0,0,-2]],['bronze','Placa de bronze — marcial (Def 11, Init −3)',[11,0,0,-3]],['runica','Placa rúnica — marcial (Def 11, M.Def +1, Init −3)',[11,0,1,-3]],['aco','Placa de aço — marcial (Def 12, Init −4)',[12,0,0,-4]],['custom','Outro (personalizada)',null]];
@@ -354,7 +428,7 @@ function calcF(){const lv=num(S.nivel),cur={},base={};
  const sl=(S.fcl||[]).reduce((a,c)=>a+num(c.l),0);$('fsl').textContent='Soma dos níveis das classes: '+sl+(sl&&sl!=lv?' (nível de personagem: '+lv+')':'');
  const g=sugF();$('fsug').textContent='Sugestão: PV +'+g.pv+' · PM +'+g.pm+' · PI +'+g.pi;
  radarF(base,cur);S.classe=(S.fcl||[]).map(c=>c.n).filter(Boolean).join(' / ');S.esp=S.fori||''}
-function calc(){if(S.sys=='fu'){calcF();return}if(S.sys=='t20'){calcT();return}
+function calc(){if(S.sys=='al'){calcA();return}if(S.sys=='fu'){calcF();return}if(S.sys=='t20'){calcT();return}
  const lv=Math.min(20,Math.max(1,num(S.nivel)||1)),pb=Math.ceil(lv/4)+1,m={};
  $('pb').textContent=fmt(pb);
  AB.forEach(([k])=>{m[k]=mod(num(S['a_'+k]));$('m_'+k).textContent=fmt(m[k]);
@@ -377,7 +451,7 @@ $('exp').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjec
 $('imp').onclick=()=>$('file').click();
 $('file').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const id='c'+Date.now();DB.chars[id]=Object.assign(novo(),JSON.parse(t));troca(id)}catch(x){alert('Arquivo inválido')}})};
 $('clr').onclick=()=>{if(confirm('Limpar os dados desta ficha?')){S=DB.chars[DB.cur]=nova(S.sys||'dnd');bind();rows();save()}};
-function mostra(b){const sy=S.sys||'dnd',ids={dnd:'sheet',t20:'sheet2',fu:'sheet3'};['sheet','sheet2','sheet3'].forEach(i=>$(i).classList.toggle('hide',!b||ids[sy]!=i));$('home').classList.toggle('hide',b);document.documentElement.dataset.sys=b&&sy!='dnd'?sy:'';scrollTo(0,0);if(!b){DB.cur=null;refreshSel()}}
+function mostra(b){const sy=S.sys||'dnd',ids={dnd:'sheet',t20:'sheet2',fu:'sheet3',al:'sheet4'};['sheet','sheet2','sheet3','sheet4'].forEach(i=>$(i).classList.toggle('hide',!b||ids[sy]!=i));$('home').classList.toggle('hide',b);document.documentElement.dataset.sys=b&&sy!='dnd'?sy:'';scrollTo(0,0);if(!b){DB.cur=null;refreshSel()}}
 function abre(id){DB.cur=id;S=DB.chars[id]=Object.assign(novo(),DB.chars[id]);bind();rows();save();mostra(true)}
 const troca=abre;
 document.addEventListener('click',e=>{const t=e.target,d=t.closest('[data-del]'),o=t.closest('[data-open]');
@@ -385,7 +459,7 @@ document.addEventListener('click',e=>{const t=e.target,d=t.closest('[data-del]')
  if(o){abre(o.dataset.open);return}
  if(t.closest('#newc')){$('modal').classList.remove('hide');return}
  const sy=t.closest('#modal [data-sys]');if(sy){$('modal').classList.add('hide');const id='c'+Date.now();DB.chars[id]=nova(sy.dataset.sys);abre(id);return}
- if(t.id=='back'||t.id=='back2'||t.id=='back3'){save();mostra(false);return}
+ if(t.id=='back'||t.id=='back2'||t.id=='back3'||t.id=='back4'){save();mostra(false);return}
  if(t.dataset.close!==undefined||t.id=='modal')$('modal').classList.add('hide')});
 refreshSel();
 
