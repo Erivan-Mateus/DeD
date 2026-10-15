@@ -2,30 +2,31 @@
 <html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ficha de Personagem D&D 5.5</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f1ece2;--card:#fbf8f2;--ink:#2a2622;--mut:#7a7166;--line:#cfc5b3;--acc:#8b1e1e;--in:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1917;--card:#26231f;--ink:#ece6da;--mut:#a39a8b;--line:#4a443b;--acc:#e07a5f;--in:#1f1d1a}}
-:root[data-theme="dark"]{--bg:#1b1917;--card:#26231f;--ink:#ece6da;--mut:#a39a8b;--line:#4a443b;--acc:#e07a5f;--in:#1f1d1a}
+:root{--bg:#080a12;--card:#0f1428;--ink:#e8dfcf;--mut:#a79a80;--line:#3b4166;--acc:#d9a441;--in:#0b0f1e;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+
+
 *{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 system-ui,Segoe UI,Roboto,sans-serif}
+body{margin:0;background:#080a12 linear-gradient(160deg,#10162a,#080a12) fixed;color:var(--ink);font:16px/1.4 'EB Garamond',Georgia,serif}
 .w{max-width:1100px;margin:0 auto;padding:12px}
-h1{font:700 20px Georgia,serif;margin:0;color:var(--acc);letter-spacing:.5px}
+h1{font:700 20px Cinzel,Georgia,serif;margin:0;color:var(--acc);letter-spacing:1px}
 .bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;margin-bottom:10px}
 button{font:inherit;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px 10px;cursor:pointer}
 button:hover{border-color:var(--acc)}button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px}
-.card h2{font:700 12px system-ui;text-transform:uppercase;letter-spacing:1px;color:var(--acc);margin:0 0 8px;border-bottom:1px solid var(--line);padding-bottom:4px}
+.card{background:var(--card);border:1px solid #b8923a;border-radius:6px;padding:10px;margin-bottom:10px}
+.card h2{font:700 13px Cinzel,Georgia,serif;text-transform:uppercase;letter-spacing:1px;color:var(--acc);margin:0 0 8px;border-bottom:1px solid var(--line);padding-bottom:4px}
 input,select,textarea{font:inherit;color:var(--ink);background:var(--in);border:1px solid var(--line);border-radius:5px;padding:4px 6px;width:100%;min-width:0}
 textarea{min-height:120px;resize:vertical}
 label{display:block;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
 .g{display:grid;gap:8px}.g2{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
 .stat{text-align:center;border:1px solid var(--line);border-radius:8px;padding:6px;background:var(--in)}
-.stat b{display:block;font-size:22px;font-family:Georgia,serif}.stat span{font-size:11px;color:var(--mut);text-transform:uppercase}
+.stat b{display:block;font-size:22px;font-family:Cinzel,Georgia,serif}.stat span{font-size:11px;color:var(--mut);text-transform:uppercase}
 .stat input{text-align:center;border:0;background:transparent;font-size:20px;padding:0}
 .abs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
 .ab .top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
 .ab .top .n{flex:1 0 100%;font-weight:700}.ab .top .stp input{width:56px;height:40px;text-align:center;font-size:20px}.ab .mod{margin-left:auto}
-.ab .mod{font:700 24px Georgia,serif;width:52px;text-align:center;color:var(--acc)}
+.ab .mod{font:700 24px Cinzel,Georgia,serif;width:52px;text-align:center;color:var(--acc)}
 .r{display:flex;align-items:center;gap:6px;padding:2px 0;border-top:1px dotted var(--line)}
 .r .v{width:34px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}.r .nm{flex:1}
 .pip{width:26px;height:26px;padding:0;border-radius:50%;border:2px solid var(--mut);background:transparent;flex:0 0 26px}.pip.p1{background:#fff;border-color:var(--ink)}.pip.p2{background:#2f6fe0;border-color:#2f6fe0}
@@ -36,15 +37,33 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 .bub{display:inline-block;width:18px;height:18px;border:2px solid var(--acc);border-radius:50%;margin:1px;cursor:pointer}
 .bub.f{background:var(--acc)}
 .sl{display:flex;align-items:center;gap:6px;margin:3px 0}.sl input{width:54px}
-.hide{display:none}.x{color:var(--acc);padding:2px 7px}
+.hide{display:none}
+#home{background:linear-gradient(160deg,#10162a,#080a12);color:#e8dfcf;border-radius:12px;padding:22px 18px;min-height:75vh;font-family:'EB Garamond',Georgia,serif;font-size:15px}
+.ht{font:700 26px Cinzel,Georgia,serif;margin:0;color:#f3e6c8;letter-spacing:1px}.hs{margin:4px 0 20px;color:#b8a47a;font-style:italic}
+.pg{display:flex;flex-wrap:wrap;gap:16px}.pc,.newc{width:200px;border-radius:4px;cursor:pointer}
+.newc{border:1px dashed #b8923a;min-height:290px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#b9b2a4;gap:8px}.newc span{font-size:34px;color:#c9a24a;line-height:1}
+.pc{position:relative;background:#0f1428;border:1px solid #b8923a;padding:14px 14px 36px}
+.ph{position:relative;aspect-ratio:1;background:linear-gradient(#2a2d36,#1e2028);border:1px solid #4a5aa0;display:flex;align-items:center;justify-content:center}.ph svg{width:48%;fill:#6b6b6b}
+.bd{position:absolute;top:-1px;right:-1px;background:#0b0f1e;border:1px solid #c9a24a;color:#d9a441;font:11px Cinzel,serif;text-transform:uppercase;padding:2px 7px;letter-spacing:.5px}
+.pc h3{font:700 17px Cinzel,Georgia,serif;margin:12px 0 4px;color:#f7ecd2;word-break:break-word}.pc i{display:block;color:#a79a80;font-size:13px}
+.pc em{display:block;font-style:normal;color:#c26a3f;font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.rm{position:absolute;right:8px;bottom:6px;background:none!important;border:0!important;color:#8a8a99;padding:4px 8px}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}#modal.hide{display:none}
+.mb{background:#10162a;border:1px solid #b8923a;border-radius:8px;padding:18px;max-width:380px;width:100%;color:#e8dfcf}.mb h3{font:700 18px Cinzel,serif;margin:0 0 12px;color:#f3e6c8}
+.sy button{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:8px;background:#0b0f1e;color:#f3e6c8;border-color:#b8923a;padding:11px 12px}
+.sy button:disabled{opacity:.55;border-color:#444;cursor:not-allowed}.sy small{color:#d9a441;font-style:italic}.sy button:disabled small{color:#9a9a9a}
+.x{color:var(--acc);padding:2px 7px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.row>*{flex:1;min-width:110px}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
-@media print{.sw,.bar,.tabs,.x,.add{display:none!important}.hide{display:block!important}body{background:#fff}}
+@media print{#home,.sw,.bar,.tabs,.x,.add{display:none!important}.hide{display:block!important}body{background:#fff!important}:root{--ink:#000;--mut:#555;--line:#999;--card:#fff;--in:#fff;--acc:#7a1f1f}}
 </style></head><body><div class="w">
-<div class="bar"><h1>⚔ Ficha de Personagem · D&amp;D 5.5</h1>
+<div id="home"><h2 class="ht">Suas Fichas</h2><p class="hs">Seus aventureiros, guardados aqui.</p><div id="grid" class="pg"></div>
+<div id="modal" class="hide"><div class="mb"><h3>Selecionar sistema</h3><div class="sy"><button data-sys="dnd"><b>D&amp;D 5.5</b><small>Disponível</small></button><button disabled><b>Daggerheart</b><small>Futuro</small></button><button disabled><b>Tormenta</b><small>Futuro</small></button><button disabled><b>Fábula Ultima</b><small>Futuro</small></button></div><button data-close style="margin-top:4px">Cancelar</button></div></div></div>
+<div id="sheet" class="hide">
+<div class="bar"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button id="back">← Fichas</button><h1>⚔ Ficha de Personagem · D&amp;D 5.5</h1></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap">
-<button id="exp">Exportar</button><button id="imp">Importar</button><button onclick="print()">Imprimir</button><button id="clr">Limpar</button><button id="thm">◐</button></div></div>
-<div class="card sw"><div class="row"><div style="flex:3"><label>Ficha atual</label><select id="sel"></select></div><button id="nova">+ Nova ficha</button><button id="del">Excluir</button></div><p style="margin:6px 0 0;color:var(--mut);font-size:12px">💾 Salvo automaticamente neste navegador. Use Exportar para ter um backup.</p></div>
+<button id="exp">Exportar</button><button id="imp">Importar</button><button onclick="print()">Imprimir</button><button id="clr">Limpar</button></div></div>
+<div class="card sw"><p style="margin:6px 0 0;color:var(--mut);font-size:12px">💾 Salvo automaticamente neste navegador. Use Exportar para ter um backup.</p></div>
 <input type="file" id="file" accept=".json" class="hide">
 
 <div class="card"><div class="g g2">
@@ -124,7 +143,7 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 <div class="card"><h2>Moedas</h2><div class="row"><div><label>PC</label><input type="number" data-k="pc"></div><div><label>PP</label><input type="number" data-k="pp2"></div><div><label>CE</label><input type="number" data-k="ce"></div><div><label>PO</label><input type="number" data-k="po"></div><div><label>PL</label><input type="number" data-k="pl"></div></div>
 <p style="margin:8px 0 0;color:var(--mut)">Total em PO: <b id="tot">0</b></p></div></div>
 </div></section>
-</div>
+</div></div>
 <script>
 const AB=[['for','Força'],['des','Destreza'],['con','Constituição'],['int','Inteligência'],['sab','Sabedoria'],['car','Carisma']];
 const SK=[['Atletismo','for'],['Acrobacia','des'],['Furtividade','des'],['Prestidigitação','des'],['Arcanismo','int'],['História','int'],['Investigação','int'],['Natureza','int'],['Religião','int'],['Lidar com Animais','sab'],['Intuição','sab'],['Medicina','sab'],['Percepção','sab'],['Sobrevivência','sab'],['Atuação','car'],['Enganação','car'],['Intimidação','car'],['Persuasão','car']];
@@ -133,11 +152,12 @@ const LK='ficha-dnd55-lista';
 const novo=()=>{const o={nivel:1,arm:'none',weapons:[{}],spells:[{}],sv:{},sk:{},spent:{}};AB.forEach(a=>o['a_'+a[0]]=10);return o};
 let DB={cur:null,chars:{}};
 try{const r=localStorage.getItem(LK);if(r)DB=JSON.parse(r);else{const old=localStorage.getItem(KEY);if(old){DB.cur='c1';DB.chars.c1=JSON.parse(old)}}}catch(e){}
-if(!DB.chars||!DB.cur||!DB.chars[DB.cur]){DB={cur:null,chars:DB.chars||{}};const k=Object.keys(DB.chars)[0]||('c'+Date.now());DB.cur=k;DB.chars[k]=DB.chars[k]||novo()}
-let S=DB.chars[DB.cur]=Object.assign(novo(),DB.chars[DB.cur]);
+if(!DB.chars)DB.chars={};DB.cur=null;
+let S=novo();
 const $=id=>document.getElementById(id),mod=v=>Math.floor((v-10)/2),fmt=n=>(n>=0?'+':'')+n,num=v=>+v||0;
-const save=()=>{DB.chars[DB.cur]=S;try{localStorage.setItem(LK,JSON.stringify(DB))}catch(e){}refreshSel()};
-function refreshSel(){$('sel').innerHTML=Object.keys(DB.chars).map(id=>{const c=DB.chars[id];return `<option value="${id}"${id==DB.cur?' selected':''}>${esc(c.nome||'Sem nome')}${c.classe?' · '+esc(c.classe):''} · nv ${num(c.nivel)||1}</option>`}).join('')}
+const save=()=>{if(DB.cur)DB.chars[DB.cur]=S;try{localStorage.setItem(LK,JSON.stringify(DB))}catch(e){}refreshSel()};
+const SYS={dnd:'D&amp;D 5.5'};
+function refreshSel(){$('grid').innerHTML='<div class="newc" id="newc"><span>+</span>Criar ficha</div>'+Object.keys(DB.chars).map(id=>{const c=DB.chars[id];return `<div class="pc" data-open="${id}"><div class="ph"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c0-5 3.8-7.5 8.5-7.5s8.5 2.5 8.5 7.5z"/></svg><span class="bd">Nível ${num(c.nivel)||1}</span></div><h3>${esc(c.nome||'Sem nome')}</h3><i>${esc([c.esp,c.classe].filter(Boolean).join(' · ')||'Sem classe')}</i><em>${SYS[c.sys||'dnd']}</em><button class="rm" data-del="${id}" title="Excluir">✕</button></div>`}).join('')}
 const abSel=(v,none)=>`<select data-f="ab">${none?'<option value="">—</option>':''}${AB.map(a=>`<option value="${a[0]}"${v==a[0]?' selected':''}>${a[0].toUpperCase()}</option>`).join('')}</select>`;
 
 // atributos + perícias
@@ -199,11 +219,17 @@ $('exp').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjec
 $('imp').onclick=()=>$('file').click();
 $('file').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const id='c'+Date.now();DB.chars[id]=Object.assign(novo(),JSON.parse(t));troca(id)}catch(x){alert('Arquivo inválido')}})};
 $('clr').onclick=()=>{if(confirm('Limpar os dados desta ficha?')){S=DB.chars[DB.cur]=novo();bind();rows();save()}};
-const troca=id=>{DB.cur=id;S=DB.chars[id]=Object.assign(novo(),DB.chars[id]);bind();rows();save();scrollTo(0,0)};
-$('sel').onchange=e=>{save();troca(e.target.value)};
-$('nova').onclick=()=>{save();const id='c'+Date.now();DB.chars[id]=novo();troca(id)};
-$('del').onclick=()=>{if(!confirm('Excluir esta ficha?'))return;delete DB.chars[DB.cur];let ids=Object.keys(DB.chars);if(!ids.length){const id='c'+Date.now();DB.chars[id]=novo();ids=[id]}troca(ids[0])};
+function mostra(b){$('sheet').classList.toggle('hide',!b);$('home').classList.toggle('hide',b);scrollTo(0,0);if(!b){DB.cur=null;refreshSel()}}
+function abre(id){DB.cur=id;S=DB.chars[id]=Object.assign(novo(),DB.chars[id]);bind();rows();save();mostra(true)}
+const troca=abre;
+document.addEventListener('click',e=>{const t=e.target,d=t.closest('[data-del]'),o=t.closest('[data-open]');
+ if(d){const id=d.dataset.del;if(!confirm('Excluir esta ficha?'))return;delete DB.chars[id];try{localStorage.setItem(LK,JSON.stringify(DB))}catch(x){}refreshSel();return}
+ if(o){abre(o.dataset.open);return}
+ if(t.closest('#newc')){$('modal').classList.remove('hide');return}
+ if(t.closest('[data-sys="dnd"]')){$('modal').classList.add('hide');const id='c'+Date.now();DB.chars[id]=Object.assign(novo(),{sys:'dnd'});abre(id);return}
+ if(t.id=='back'){save();mostra(false);return}
+ if(t.dataset.close!==undefined||t.id=='modal')$('modal').classList.add('hide')});
 refreshSel();
-$('thm').onclick=()=>{const r=document.documentElement;const d=getComputedStyle(r).getPropertyValue('--bg').trim()=='#1b1917';r.dataset.theme=d?'light':'dark'};
+
 bind();rows();
 </script></body></html>
