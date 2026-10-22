@@ -87,11 +87,12 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 <div><label>Nome do personagem</label><input data-k="nome"></div>
 <div><label>Antecedente</label><input data-k="ante"></div>
 <div><label>Espécie</label><input data-k="esp"></div>
-<div><label>Classe</label><input data-k="classe"></div>
-<div><label>Subclasse</label><input data-k="sub"></div>
-<div><label>Nível (1–20)</label><input type="number" min="1" max="20" data-k="nivel"></div>
+<div><label>Classe</label><input data-k="classe" readonly></div>
+<div><label>Subclasse</label><input data-k="sub" readonly></div>
+<div><label>Nível total</label><input type="number" min="1" max="20" data-k="nivel"></div>
 <div><label>XP</label><input type="number" data-k="xp"></div>
 <div><label>Pontos de álcool</label><input type="number" data-k="alcool"></div>
+<div><label>Exaustão (6 = morte)</label><input type="number" min="0" max="6" data-k="exaus"><small id="exh" style="color:var(--mut)"></small></div>
 <div><label>Inspiração heroica</label><label style="font-size:14px;text-transform:none"><input type="checkbox" data-k="insp" style="width:auto"> Possui</label></div>
 </div></div>
 
@@ -99,6 +100,12 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 <button class="on" data-t="t1">Ficha</button><button data-t="t2">Magias</button><button data-t="t3">Detalhes</button><button data-t="t4">Extras</button></div>
 
 <section id="t1">
+<div class="card"><h2>Classes e multiclasse</h2>
+<p id="clsum" style="margin:0 0 6px;color:var(--mut);font-size:13px"></p>
+<div class="tbl"><table style="min-width:0"><tbody id="clb"></tbody></table></div>
+<button class="add" id="cladd">+ Multiclasse</button></div>
+<div class="card"><h2>Recursos de classe</h2><div id="resb"></div>
+<div class="row" style="margin-top:8px"><button class="add" id="rsh">Descanso curto</button><button class="add" id="rlg">Descanso longo (tudo)</button></div></div>
 <div class="g g2" style="margin-bottom:10px">
 <div class="stat"><b id="pb">+2</b><span>Bônus de proficiência</span></div>
 <div class="stat"><b id="ca">10</b><span>Classe de armadura</span></div>
@@ -124,7 +131,7 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 <div><label>Atual</label><input type="number" data-k="hp"></div>
 <div><label>Máximo</label><input type="number" data-k="hpMax"></div>
 <div><label>Temporário</label><input type="number" data-k="hpTmp"></div>
-<div><label>Dados de vida (total, ex: 3d8)</label><input data-k="dv"></div>
+<div><label>Dados de vida (total, ex: 3d8)</label><input data-k="dv"><small id="dvh" style="color:var(--mut)"></small></div>
 <div><label>Dados gastos</label><input type="number" data-k="dvG"></div></div>
 <label style="margin-top:8px">Salvaguarda contra morte</label>
 <div>Sucessos <span id="dss"></span> &nbsp; Falhas <span id="dsf"></span></div>
@@ -139,7 +146,7 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 <div class="card"><h2>Características de classe</h2><textarea data-k="cc" style="min-height:200px"></textarea></div>
 <div class="cols"><div class="card"><h2>Traços de espécie</h2><textarea data-k="te2"></textarea></div><div class="card"><h2>Talentos</h2><textarea data-k="tal"></textarea></div></div>
 <div class="card"><h2>Treinamento e proficiência em equipamentos</h2><div class="cols"><div><label>Armas</label><textarea data-k="parm" style="min-height:70px"></textarea></div><div><label>Ferramentas</label><textarea data-k="pfer" style="min-height:70px"></textarea></div></div></div>
-<div class="card"><h2>Extras para Monge</h2><div class="g g2"><div><label>Pontos de Ki/Foco atuais</label><input type="number" min="0" data-k="kiA"></div><div><label>Pontos de Ki/Foco máximos</label><input type="number" min="0" data-k="kiM"></div></div></div>
+
 </section>
 
 <section id="t2" class="hide">
@@ -303,7 +310,7 @@ $('slots').innerHTML=[1,2,3,4,5,6,7,8,9].map(i=>`<div class="sl"><b style="width
 function bind(){document.querySelectorAll('[data-k]').forEach(e=>{const v=S[e.dataset.k];if(e.type=='checkbox')e.checked=!!v;else e.value=v===undefined?'':v})}
 document.addEventListener('input',e=>{const t=e.target;
  if(t.dataset.k){S[t.dataset.k]=t.type=='checkbox'?t.checked:t.value}
- else if(t.dataset.a){const o=t.closest('tr').dataset;S[o.a][o.i][t.dataset.f]=t.type=='checkbox'?t.checked:t.value}
+ else if(t.dataset.a){const o=t.closest('tr').dataset;S[o.a][o.i][t.dataset.f]=t.type=='checkbox'?t.checked:t.value;if(o.a=='cls'&&t.dataset.f=='n')rowsC()}
  calc();save()});
 document.addEventListener('click',e=>{const t=e.target;
  if(t.dataset.sv){S.sv[t.dataset.sv]=!S.sv[t.dataset.sv]}
@@ -316,13 +323,14 @@ document.addEventListener('click',e=>{const t=e.target;
  else if(t.dataset.bx){const[k,i]=t.dataset.bx.split(':');S[k]=num(S[k])==+i+1?+i:+i+1}
  else if(t.dataset.fp){const[k,d]=t.dataset.fp.split(':');S[k]=Math.max(0,num(S[k])+ +d);document.querySelector(`[data-k="${k}"]`).value=S[k]}
  else if(t.dataset.st2){const[k,d]=t.dataset.st2.split(':'),n=Math.min(30,Math.max(1,num(S[k])+ +d));S[k]=n;document.querySelector(`[data-k="${k}"]`).value=n}
+ else if(t.dataset.ru){const[k,i]=t.dataset.ru.split(':'),mx=RM[k]||0,rem=mx-Math.min(mx,num(S.ru[k])),n=rem==+i+1?+i:+i+1;S.ru[k]=mx-n}
  else if(t.dataset.t){document.querySelectorAll('section').forEach(s=>s.classList.add('hide'));$(t.dataset.t).classList.remove('hide');document.querySelectorAll('[data-t]').forEach(b=>b.classList.toggle('on',b==t))}
  else return;calc();save()});
 
 function rows(){
  $('wb').innerHTML=S.weapons.map((w,i)=>`<tr data-a="weapons" data-i="${i}"><td><input data-a="1" data-f="n" value="${esc(w.n)}"></td><td>${abSel(w.ab,1).replace('data-f','data-a="1" data-f')}</td><td class="c"><input type="checkbox" data-a="1" data-f="p"${w.p?' checked':''}></td><td><input type="number" style="width:60px" data-a="1" data-f="x" value="${esc(w.x)}"></td><td class="c"><b class="wa">+0</b></td><td><input data-a="1" data-f="d" placeholder="1d8" value="${esc(w.d)}"></td><td class="c"><b class="wd"></b></td><td><input data-a="1" data-f="t" value="${esc(w.t)}"></td><td><input data-a="1" data-f="o" value="${esc(w.o)}"></td><td><button class="x" data-rm="weapons:${i}">✕</button></td></tr>`).join('');
  $('sb').innerHTML=S.spells.map((w,i)=>`<tr data-a="spells" data-i="${i}"><td><input style="width:54px" data-a="1" data-f="c" value="${esc(w.c)}" placeholder="0"></td><td><input data-a="1" data-f="n" value="${esc(w.n)}"></td><td><input data-a="1" data-f="tc" value="${esc(w.tc)}"></td><td><input data-a="1" data-f="al" value="${esc(w.al)}"></td>${['C','R','M'].map(c=>`<td class="c"><input type="checkbox" data-a="1" data-f="${c}"${w[c]?' checked':''}></td>`).join('')}<td><input data-a="1" data-f="o" value="${esc(w.o)}"></td><td><button class="x" data-rm="spells:${i}">✕</button></td></tr>`).join('');
- rowsT();rowsF();rowsA();rowsX();calc()}
+ rowsC();rowsT();rowsF();rowsA();rowsX();calc()}
 const esc=v=>String(v==null?'':v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
 $('wa').onclick=()=>{S.weapons.push({});rows();save()};
 $('sa').onclick=()=>{S.spells.push({});rows();save()};
@@ -356,15 +364,44 @@ function calcT(){const lv=Math.min(20,Math.max(1,num(S.nivel)||1)),h=Math.floor(
   $('tsd_'+i).textContent=`½ nível ${h} ${fmt(m[k])} ${k.toUpperCase()}`+(tr?` +${tb} trein.`:'')+(a?` −${a} armadura`:'')+(f.includes('t')&&!tr?' · só treinada':'')});
  $('ttrn').textContent=nt+' · Int '+fmt(m.int);
  document.querySelectorAll('#tatk tr').forEach((tr,i)=>{const w=S.atk[i]||{};tr.querySelector('.ta').textContent=fmt(tot[w.p||'Luta']+num(w.x))})}
+/*CLASSES*/
+const CLS={Bárbaro:['Berserker','Coração Selvagem','Árvore do Mundo','Fanático'],Bardo:['Colégio da Dança','Colégio do Glamour','Colégio do Conhecimento','Colégio da Bravura'],Bruxo:['Patrono Arquifada','Patrono Celestial','Patrono Ínfero','Patrono Grande Antigo'],Clérigo:['Domínio da Vida','Domínio da Luz','Domínio da Trapaça','Domínio da Guerra'],Druida:['Círculo da Terra','Círculo da Lua','Círculo do Mar','Círculo das Estrelas'],Feiticeiro:['Mente Aberrante','Alma Mecânica','Feitiçaria Dracônica','Magia Selvagem'],Guardião:['Mestre das Feras','Andarilho Feérico','Caçador das Sombras','Caçador'],Guerreiro:['Mestre da Batalha','Campeão','Cavaleiro Místico','Guerreiro Psíquico'],Ladino:['Trapaceiro Arcano','Assassino','Lâmina da Alma','Ladrão'],Mago:['Abjurador','Adivinho','Evocador','Ilusionista'],Monge:['Guerreiro da Misericórdia','Guerreiro da Sombra','Guerreiro dos Elementos','Guerreiro da Mão Espalmada'],Paladino:['Devoção','Glória','Anciões','Vingança']};
+const HD={barbaro:12,guerreiro:10,paladino:10,guardiao:10,bardo:8,clerigo:8,druida:8,monge:8,ladino:8,bruxo:8,feiticeiro:6,mago:6};
+const RD=[['rage','Fúrias','barbaro','Bárbaro',L=>L>=17?6:L>=12?5:L>=6?4:L>=3?3:2,L=>`Dano da Fúria +${L>=16?4:L>=9?3:2} · curto: recupera 1 · longo: todas`],
+['sw','Retomar Fôlego','guerreiro','Guerreiro',L=>L>=10?4:L>=4?3:2,L=>`Ação bônus: cura 1d10 + ${L} · curto: recupera 1 · longo: todos`],
+['ki','Pontos de Foco','monge','Monge',L=>L>=2?L:0,(L,pb,w)=>L<2?'Disponível a partir do nível 2 de Monge':`CD de Foco ${8+pb+w} · Artes Marciais d${L>=17?12:L>=11?10:L>=5?8:6} · curto ou longo: todos`]];
+const RM={};
+const lvOf=n=>(S.cls||[]).filter(c=>nrm(c.n)==n).reduce((a,c)=>a+num(c.l),0);
+function rowsC(){if(S.sys&&S.sys!='dnd')return;if(!S.cls)S.cls=[{n:S.classe||'',l:num(S.nivel)||1,s:S.sub||''}];if(!S.ru)S.ru={};
+ const names=Object.keys(CLS);
+ $('clb').innerHTML=S.cls.map((w,i)=>`<tr data-a="cls" data-i="${i}"><td style="padding:6px 0;border-top:1px dotted var(--line)"><div class="row"><div style="flex:2"><label>Classe</label><select data-a="1" data-f="n"><option value="">—</option>${names.map(n=>`<option${w.n==n?' selected':''}>${n}</option>`).join('')}${w.n&&!names.includes(w.n)?`<option selected>${esc(w.n)}</option>`:''}</select></div><div style="flex:3"><label>Subclasse</label><input list="dsub${i}" data-a="1" data-f="s" value="${esc(w.s)}"><datalist id="dsub${i}">${(CLS[w.n]||[]).map(s=>`<option value="${s}">`).join('')}</datalist></div><div><label>Nível</label><input type="number" min="1" max="20" data-a="1" data-f="l" value="${esc(w.l)}"></div><button class="x" data-rm="cls:${i}" style="flex:0 0 auto;min-width:0">✕</button></div></td></tr>`).join('')}
+$('cladd').onclick=()=>{S.cls.push({l:1});rowsC();calc();save()};
+function calcC(){if(S.sys&&S.sys!='dnd')return;S.cls=S.cls||[];S.ru=S.ru||{};
+ const cl=S.cls,tot=cl.reduce((a,c)=>a+num(c.l),0),named=cl.filter(c=>c.n);
+ S.classe=named.map(c=>named.length>1?c.n+' '+num(c.l):c.n).join(' / ');S.sub=named.map(c=>c.s).filter(Boolean).join(' / ');
+ [['classe',S.classe],['sub',S.sub]].forEach(([k,v])=>{const e=document.querySelector('#sheet [data-k="'+k+'"]');if(e)e.value=v});
+ $('clsum').textContent='Soma dos níveis das classes: '+tot+' · Nível total da ficha: '+(num(S.nivel)||1)+' (editável no topo)';
+ const pb=Math.ceil(Math.min(20,S.nivel)/4)+1,w=mod(num(S.a_sab));
+ const hd={};cl.forEach(c=>{const d=HD[nrm(c.n)];if(d)hd[d]=(hd[d]||0)+num(c.l)});
+ $('dvh').textContent=Object.keys(hd).length?'Sugestão: '+Object.keys(hd).sort((a,b)=>b-a).map(d=>hd[d]+'d'+d).join(' + '):'';
+ const ex=Math.max(0,num(S.exaus)),eh=$('exh');eh.textContent=ex>=6?'☠ 6 = MORTE':ex>0?'Testes de d20 −'+ex*2+' · Deslocamento −'+(ex*1.5)+' m · 6 = morte':'Nível 0–5 · 6 = morte';eh.style.color=ex>=6?'#e8473d':'var(--mut)';eh.style.fontWeight=ex>=6?'700':'400';
+ let h='';
+ RD.forEach(([k,nm,c,cn,mxf,inf])=>{const L=lvOf(c);if(!L){RM[k]=0;return}
+  const mx=mxf(L);RM[k]=mx;const rem=mx-Math.min(mx,num(S.ru[k]));
+  h+=`<div style="padding:8px 0;border-top:1px dotted var(--line)"><div style="display:flex;justify-content:space-between;gap:8px"><b>${nm} <small style="color:var(--mut)">(${cn} ${L})</small></b><b>${mx?'Restam '+rem+' / '+mx:'—'}</b></div>${mx?`<div style="margin:4px 0">${Array.from({length:mx},(_,i)=>`<span class="bub${i<rem?' f':''}" data-ru="${k}:${i}"></span>`).join('')}</div>`:''}<small style="color:var(--mut)">${inf(L,pb,w)}</small></div>`});
+ $('resb').innerHTML=h||'<small style="color:var(--mut)">Escolha Bárbaro, Guerreiro ou Monge para ver os usos de Fúria, Retomar Fôlego e Pontos de Foco.</small>'}
+$('rsh').onclick=()=>{Object.keys(RM).forEach(k=>{S.ru[k]=k=='ki'?0:Math.max(0,num(S.ru[k])-1)});calc();save()};
+$('rlg').onclick=()=>$('cura').click();
 /*AL*/
 const XH=`<div class="card"><h2>Inventário</h2><div class="tbl"><table style="min-width:0"><thead><tr><th>Item</th><th style="width:70px">Qtd</th><th>Observações</th><th></th></tr></thead><tbody class="invb"></tbody></table></div><button class="add invadd">+ Item</button></div>
+<div class="card"><h2>Buffs de alimentação</h2><div class="tbl"><table style="min-width:0"><thead><tr><th>Alimento</th><th>Buff / efeito</th><th style="width:110px">Duração</th><th></th></tr></thead><tbody class="bufb"></tbody></table></div><button class="add bufadd">+ Buff</button></div>
 <div class="card"><h2>Anotações extras</h2><textarea data-k="notas" style="min-height:160px"></textarea></div>`;
 document.querySelectorAll('.extras').forEach(e=>e.innerHTML=XH);
 ['sheet','sheet2','sheet3','sheet4'].forEach(id=>{const c=document.querySelector('#'+id+' [data-k="nome"]').closest('.card');c.classList.add('hd');c.insertAdjacentHTML('afterbegin','<div class="av"><label title="Foto do personagem"><div class="foto"></div><input type="file" accept="image/*" class="fin" style="display:none"></label><button type="button" class="frm">Remover</button></div>')});
 function fotoUI(){document.querySelectorAll('.foto').forEach(f=>{f.style.backgroundImage=S.foto?`url("${S.foto}")`:'';f.textContent=S.foto?'':'+ Foto'});document.querySelectorAll('.av .frm').forEach(b=>b.style.display=S.foto?'':'none')}
-function rowsX(){if(!S.inv)S.inv=[{}];document.querySelectorAll('.invb').forEach(b=>b.innerHTML=S.inv.map((w,i)=>`<tr data-a="inv" data-i="${i}"><td><input data-a="1" data-f="n" value="${esc(w.n)}"></td><td><input type="number" style="width:70px" data-a="1" data-f="q" value="${esc(w.q)}"></td><td><input data-a="1" data-f="o" value="${esc(w.o)}"></td><td><button class="x" data-rm="inv:${i}">✕</button></td></tr>`).join(''));fotoUI()}
+function rowsX(){if(!S.inv)S.inv=[{}];document.querySelectorAll('.invb').forEach(b=>b.innerHTML=S.inv.map((w,i)=>`<tr data-a="inv" data-i="${i}"><td><input data-a="1" data-f="n" value="${esc(w.n)}"></td><td><input type="number" style="width:70px" data-a="1" data-f="q" value="${esc(w.q)}"></td><td><input data-a="1" data-f="o" value="${esc(w.o)}"></td><td><button class="x" data-rm="inv:${i}">✕</button></td></tr>`).join(''));if(!S.buf)S.buf=[{}];document.querySelectorAll('.bufb').forEach(b=>b.innerHTML=S.buf.map((w,i)=>`<tr data-a="buf" data-i="${i}"><td><input data-a="1" data-f="n" value="${esc(w.n)}"></td><td><input data-a="1" data-f="o" value="${esc(w.o)}"></td><td><input data-a="1" data-f="d" placeholder="1 h" value="${esc(w.d)}"></td><td><button class="x" data-rm="buf:${i}">✕</button></td></tr>`).join(''));fotoUI()}
 document.addEventListener('change',e=>{const t=e.target;if(!t.classList||!t.classList.contains('fin')||!t.files[0])return;const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const r=Math.min(1,360/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*r);c.height=Math.round(im.height*r);c.getContext('2d').drawImage(im,0,0,c.width,c.height);S.foto=c.toDataURL('image/jpeg',.82);t.value='';fotoUI();save()};im.src=fr.result};fr.readAsDataURL(t.files[0])});
-document.addEventListener('click',e=>{const t=e.target;if(t.classList.contains('frm')){S.foto='';fotoUI();save()}if(t.classList.contains('invadd')){S.inv=S.inv||[];S.inv.push({});rowsX();save()}});
+document.addEventListener('click',e=>{const t=e.target;if(t.classList.contains('frm')){S.foto='';fotoUI();save()}if(t.classList.contains('invadd')){S.inv=S.inv||[];S.inv.push({});rowsX();save()}if(t.classList.contains('bufadd')){S.buf=S.buf||[];S.buf.push({});rowsX();save()}});
 const AAT=[['for','Força'],['agi','Agilidade'],['per','Perspicácia'],['emp','Empatia']];
 const ASK=[['Combate Corpo a Corpo','for'],['Maquinário Pesado','for'],['Resistência','for'],['Combate à Distância','agi'],['Mobilidade','agi'],['Pilotagem','agi'],['Observação','per'],['Sobrevivência','per'],['Tecnologia','per'],['Comando','emp'],['Manipulação','emp'],['Ajuda Médica','emp']];
 $('acars').innerHTML=['Colono','Fuzileiro Colonial','Agente da Companhia','Criança','Médico','Oficial','Piloto','Operário','Cientista'].map(c=>`<option value="${c}">`).join('');
@@ -431,7 +468,7 @@ function calcF(){const lv=num(S.nivel),cur={},base={};
  const g=sugF();$('fsug').textContent='Sugestão: PV +'+g.pv+' · PM +'+g.pm+' · PI +'+g.pi;
  radarF(base,cur);S.classe=(S.fcl||[]).map(c=>c.n).filter(Boolean).join(' / ');S.esp=S.fori||''}
 function calc(){if(S.sys=='al'){calcA();return}if(S.sys=='fu'){calcF();return}if(S.sys=='t20'){calcT();return}
- const lv=Math.min(20,Math.max(1,num(S.nivel)||1)),pb=Math.ceil(lv/4)+1,m={};
+ calcC();const lv=Math.min(20,Math.max(1,num(S.nivel)||1)),pb=Math.ceil(lv/4)+1,m={};
  $('pb').textContent=fmt(pb);
  AB.forEach(([k])=>{m[k]=mod(num(S['a_'+k]));$('m_'+k).textContent=fmt(m[k]);
   $('sv_'+k).textContent=fmt(m[k]+(S.sv[k]?pb:0));document.querySelector(`[data-sv=${k}]`).className='pip'+(S.sv[k]?' p1':'');});
@@ -448,7 +485,7 @@ function calc(){if(S.sys=='al'){calcA();return}if(S.sys=='fu'){calcF();return}if
   tr.querySelector('.wa').textContent=fmt(a);const dm=mm+num(w.x)*0;tr.querySelector('.wd').textContent=w.d?(w.d.replace(/\s/g,'')+(dm?fmt(dm):'')):''});
  $('tot').textContent=(num(S.pc)/100+num(S.pp2)/10+num(S.ce)/2+num(S.po)+num(S.pl)*10).toFixed(2).replace(/\.?0+$/,'')||0;
 }
-$('cura').onclick=()=>{S.dvG=0;S.dsS=0;S.dsF=0;S.hp=S.hpMax;S.spent={};bind();calc();save()};
+$('cura').onclick=()=>{S.dvG=0;S.dsS=0;S.dsF=0;S.hp=S.hpMax;S.spent={};S.ru={};bind();calc();save()};
 $('exp').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:'application/json'}));a.download=(S.nome||'personagem')+'.json';a.click()};
 $('imp').onclick=()=>$('file').click();
 $('file').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const id='c'+Date.now();DB.chars[id]=Object.assign(novo(),JSON.parse(t));troca(id)}catch(x){alert('Arquivo inválido')}})};
