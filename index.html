@@ -69,6 +69,7 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 :root[data-sys="al"] body{font-family:system-ui,Segoe UI,Roboto,sans-serif;background:radial-gradient(1px 1px at 12% 18%,#fff 50%,transparent 51%) 0 0/240px 240px,radial-gradient(1px 1px at 72% 34%,#fff 50%,transparent 51%) 0 0/310px 310px,radial-gradient(1.5px 1.5px at 40% 78%,#cfd6e4 50%,transparent 51%) 0 0/270px 270px,radial-gradient(1px 1px at 88% 82%,#fff 50%,transparent 51%) 0 0/200px 200px,#020409;background-attachment:fixed}
 :root[data-sys="al"] .card h2,:root[data-sys="al"] .logo{font-family:Orbitron,system-ui,sans-serif;letter-spacing:2px}
 .logo{font:700 24px Cinzel,Georgia,serif;color:var(--acc);letter-spacing:2px}
+.cdon{border-color:#e8473d!important;box-shadow:0 0 0 1px #e8473d}
 .tsk td{border-top:1px dotted var(--line)}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.row>*{flex:1;min-width:110px}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
@@ -97,7 +98,7 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 </div></div>
 
 <div class="tabs bar" style="justify-content:flex-start">
-<button class="on" data-t="t1">Ficha</button><button data-t="t2">Magias</button><button data-t="t3">Detalhes</button><button data-t="t4">Extras</button></div>
+<button class="on" data-t="t1">Ficha</button><button data-t="t2">Magias</button><button data-t="t3">Detalhes</button><button data-t="t5">Condições</button><button data-t="t4">Extras</button></div>
 
 <section id="t1">
 <div class="card"><h2>Classes e multiclasse</h2>
@@ -169,6 +170,7 @@ td.c{text-align:center;white-space:nowrap}td input[type=checkbox]{width:auto}
 <div class="card"><h2>Moedas</h2><div class="row"><div><label>PC</label><input type="number" data-k="pc"></div><div><label>PP</label><input type="number" data-k="pp2"></div><div><label>CE</label><input type="number" data-k="ce"></div><div><label>PO</label><input type="number" data-k="po"></div><div><label>PL</label><input type="number" data-k="pl"></div></div>
 <p style="margin:8px 0 0;color:var(--mut)">Total em PO: <b id="tot">0</b></p></div></div>
 </div></section>
+<section id="t5" class="hide"><div id="cnd"></div></section>
 <section id="t4" class="hide"><div class="extras"></div></section>
 </div>
 <div id="sheet2" class="hide">
@@ -393,6 +395,27 @@ function calcC(){if(S.sys&&S.sys!='dnd')return;S.cls=S.cls||[];S.ru=S.ru||{};
  $('resb').innerHTML=h||'<small style="color:var(--mut)">Escolha Bárbaro, Guerreiro ou Monge para ver os usos de Fúria, Retomar Fôlego e Pontos de Foco.</small>'}
 $('rsh').onclick=()=>{Object.keys(RM).forEach(k=>{S.ru[k]=k=='ki'?0:Math.max(0,num(S.ru[k])-1)});calc();save()};
 $('rlg').onclick=()=>$('cura').click();
+/*CONDICOES*/
+const CND=[
+['Agarrado',['Deslocamento 0.|Seu deslocamento é reduzido a 0 e não pode ser aumentado.','Ataques Afetados.|Você tem desvantagem em jogadas de ataque contra qualquer alvo que não seja quem está lhe agarrando.','Móvel.|Quem o agarrou pode arrastar ou carregar você quando se move, mas cada metro de movimento custa 1 metro adicional, a menos que você seja Minúsculo ou dois ou mais tamanhos menores que o agarrador.']],
+['Amedrontado',['Testes de Atributo e Ataques Afetados.|Você tem desvantagem em testes de atributo e jogadas de ataque enquanto a fonte do medo estiver em sua linha de visão.','Não se Aproxima.|Você não pode se aproximar voluntariamente da fonte do medo.']],
+['Atordoado',['Incapacitado.|Você tem a condição Incapacitado.','Salvaguardas Afetadas.|Você falha automaticamente em salvaguardas de Força e Destreza.','Ataques Afetados.|Jogadas de ataque contra você têm vantagem.']],
+['Caído',['Movimento Restrito.|Suas únicas opções de movimento são rastejar ou gastar uma quantidade de movimento equivalente à metade do seu deslocamento (arredondado para baixo) para se levantar, encerrando assim a condição. Se seu deslocamento for 0, você não pode se levantar.','Ataques Afetados.|Você tem desvantagem em jogadas de ataque. Uma jogada de ataque contra você tem vantagem se o atacante estiver a até 1,5 metro. Caso contrário, a jogada de ataque tem desvantagem.']],
+['Cego',['Não Consegue Enxergar.|Você não consegue enxergar e falha automaticamente em qualquer teste de atributo que dependa da visão.','Ataques Afetados.|Jogadas de ataque contra você têm vantagem, e suas jogadas de ataque têm desvantagem.']],
+['Contido',['Deslocamento 0.|Seu deslocamento é reduzido a 0 e não pode ser aumentado.','Ataques Afetados.|Jogadas de ataque contra você têm vantagem, e suas jogadas de ataque têm desvantagem.','Salvaguardas Afetadas.|Você tem desvantagem em salvaguardas de Destreza.']],
+['Enfeitiçado',['Não Pode Ferir Enfeitiçador.|Você não pode atacar ou escolher quem enfeitiçou como alvo de habilidades ou efeitos mágicos danosos.','Vantagem Social.|Quem enfeitiçou tem vantagem em qualquer teste de atributo para interagir socialmente com você.']],
+['Envenenado',['Testes de Atributo e Ataques Afetados.|Você tem desvantagem em jogadas de ataque e testes de atributo.']],
+['Exaustão',['Níveis de Exaustão.|Esta condição é cumulativa. Cada vez que a recebe, você ganha 1 nível de exaustão. Caso seu nível de exaustão chegue a 6, você morre.','Testes de D20 Afetados.|Ao fazer um teste de d20, a jogada é reduzida em 2 vezes seu nível de exaustão.','Deslocamento Reduzido.|Seu deslocamento é reduzido em um número de metros igual a 1,5 vez seu nível de exaustão.','Removendo Níveis de Exaustão.|Terminar um descanso longo remove 1 nível de exaustão. A condição se encerra quando seu nível de exaustão chega a 0.','Nível atual.|Use o campo "Exaustão" no topo da ficha; com nível 1 ou mais, esta condição conta como ativa.']],
+['Incapacitado',['Inativo.|Você não pode executar nenhuma ação, ação bônus ou reação.','Sem Concentração.|Sua concentração é interrompida.','Sem Fala.|Você não pode falar.','Surpreso.|Se estiver incapacitado ao jogar sua iniciativa, você tem desvantagem na jogada.']],
+['Inconsciente',['Inerte.|Você fica com as condições Incapacitado e Caído, e solta tudo o que estiver segurando. Quando esta condição é encerrada, você continua caído.','Deslocamento 0.|Seu deslocamento é reduzido a 0 e não pode ser aumentado.','Ataques Afetados.|Jogadas de ataque contra você têm vantagem.','Salvaguardas Afetadas.|Você falha automaticamente em salvaguardas de Força e Destreza.','Acertos Críticos Automáticos.|Qualquer jogada de ataque bem-sucedida contra você é um acerto crítico se o atacante estiver a até 1,5 metro.','Alheio.|Você não tem consciência do que está ao seu redor.']],
+['Invisível',['Surpresa.|Se estiver invisível ao jogar sua iniciativa, você tem vantagem na jogada.','Oculto.|Você não é afetado por nenhum efeito que exija que o alvo seja visto, a menos que o criador do efeito possa vê-lo de alguma forma. Qualquer equipamento que você esteja vestindo ou carregando também fica oculto.','Ataques Afetados.|Jogadas de ataque contra você têm desvantagem, e suas jogadas de ataque têm vantagem. Se uma criatura puder vê-lo de alguma forma, você não ganha esse benefício contra essa criatura.']],
+['Paralisado',['Incapacitado.|Você tem a condição Incapacitado.','Deslocamento 0.|Seu deslocamento é reduzido a 0 e não pode ser aumentado.','Salvaguardas Afetadas.|Você falha automaticamente em salvaguardas de Força e Destreza.','Ataques Afetados.|Jogadas de ataque contra você têm vantagem.','Acertos Críticos Automáticos.|Qualquer jogada de ataque bem-sucedida contra você é um acerto crítico se o atacante estiver a até 1,5 metro.']],
+['Petrificado',['Transformado em Substância Inanimada.|Você é transformado, junto com qualquer objeto não mágico que esteja vestindo ou carregando, em uma substância sólida inanimada (geralmente pedra). Seu peso aumenta por um fator de dez e você para de envelhecer.','Incapacitado.|Você tem a condição Incapacitado.','Deslocamento 0.|Seu deslocamento é reduzido a 0 e não pode ser aumentado.','Ataques Afetados.|Jogadas de ataque contra você têm vantagem.','Salvaguardas Afetadas.|Você falha automaticamente em salvaguardas de Força e Destreza.','Resistência a Dano.|Você tem Resistência a todos os tipos de dano.','Imunidade a Veneno.|Você tem Imunidade à condição Envenenado.']],
+['Surdo',['Não Consegue Ouvir.|Você não consegue ouvir e falha automaticamente em qualquer teste de atributo que dependa da audição.']]];
+$('cnd').innerHTML='<div class="card"><h2>Condições ativas</h2><p id="cdsum" style="margin:0"></p></div><div class="cols" style="align-items:start">'+CND.map(([n,ef],i)=>`<div class="card cdc"><div class="row" style="align-items:center;margin-bottom:6px"><label style="text-transform:none;font-size:16px;color:var(--ink);flex:2"><input type="checkbox" data-k="cd_on_${i}" style="width:auto"> <b>${n}</b></label><div><label>Duração</label><input data-k="cd_du_${i}" placeholder="Ex: 3 rodadas"></div></div>${ef.map(e=>{const[t,x]=e.split('|');return `<p style="margin:4px 0;font-size:14px"><b>${t}</b> ${x}</p>`}).join('')}</div>`).join('')+'</div>';
+function calcCd(){if(S.sys&&S.sys!='dnd')return;const ex=num(S.exaus),a=[],cs=document.querySelectorAll('.cdc');
+ CND.forEach(([n],i)=>{const exa=n=='Exaustão'&&ex>0,on=!!S['cd_on_'+i]||exa;if(cs[i])cs[i].classList.toggle('cdon',on);if(on){const d=S['cd_du_'+i];a.push(n+(exa?' (nível '+ex+')':'')+(d?' — '+d:''))}});
+ $('cdsum').textContent=a.length?a.join(' · '):'Nenhuma condição ativa.'}
 /*AL*/
 const XH=`<div class="card"><h2>Inventário</h2><div class="tbl"><table style="min-width:0"><thead><tr><th>Item</th><th style="width:70px">Qtd</th><th>Observações</th><th></th></tr></thead><tbody class="invb"></tbody></table></div><button class="add invadd">+ Item</button></div>
 <div class="card"><h2>Buffs de alimentação</h2><div class="tbl"><table style="min-width:0"><thead><tr><th>Alimento</th><th>Buff / efeito</th><th style="width:110px">Duração</th><th></th></tr></thead><tbody class="bufb"></tbody></table></div><button class="add bufadd">+ Buff</button></div>
@@ -469,7 +492,7 @@ function calcF(){const lv=num(S.nivel),cur={},base={};
  const g=sugF();$('fsug').textContent='Sugestão: PV +'+g.pv+' · PM +'+g.pm+' · PI +'+g.pi;
  radarF(base,cur);S.classe=(S.fcl||[]).map(c=>c.n).filter(Boolean).join(' / ');S.esp=S.fori||''}
 function calc(){if(S.sys=='al'){calcA();return}if(S.sys=='fu'){calcF();return}if(S.sys=='t20'){calcT();return}
- calcC();const lv=Math.min(20,Math.max(1,num(S.nivel)||1)),pb=Math.ceil(lv/4)+1,m={};
+ calcC();calcCd();const lv=Math.min(20,Math.max(1,num(S.nivel)||1)),pb=Math.ceil(lv/4)+1,m={};
  $('pb').textContent=fmt(pb);
  AB.forEach(([k])=>{m[k]=mod(num(S['a_'+k]));$('m_'+k).textContent=fmt(m[k]);
   $('sv_'+k).textContent=fmt(m[k]+(S.sv[k]?pb:0));document.querySelector(`[data-sv=${k}]`).className='pip'+(S.sv[k]?' p1':'');});
